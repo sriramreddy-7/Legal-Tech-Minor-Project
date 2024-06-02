@@ -58,3 +58,4 @@ tzdata==2023.3
 urllib3==2.1.0
 whitenoise==6.5.0
 yarl==1.9.4
+python-decouple==3.5
