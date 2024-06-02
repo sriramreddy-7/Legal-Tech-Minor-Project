@@ -1,0 +1,63 @@
+{% extends 'client/client_base.html' %}
+{% load static %}
+
+{% block body %}
+
+<main id="main" class="main">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Details</h5>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date Time</th>
+                                    <th>Service Provider</th>
+                                    <th>Client Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Address</th>
+                                    <th>Occupation</th>
+                                    <th>Case Type</th>
+                                    <th>Case Info</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in appointment_requests %}
+                                <tr>
+                                    <td>{{ request.date_time }}</td>
+                                    <td>{{ request.service_provider.first_name }}&nbsp;{{ request.service_provider.last_name }}</td>
+                                  
+                                    <td>{{ request.client_name }}</td>
+                                    <td>{{ request.phone_number }}</td>
+                                   
+                               
+                                    <td>{{ request.address }}</td>
+                                    <td>{{ request.occupation }}</td>
+                                    <td>{{ request.case_type }}</td>
+                                    <td>{{ request.case_info }}</td>
+                                      <td>
+                                        {% if request.is_accepted %}
+                                       <span class="badge bg-success">Approved</span>
+                                        {% elif request.is_rejected %}
+                                       <span class="badge bg-danger">Rejected</span> 
+                                        {% else %}
+                                        <span class="badge bg-warning">Waiting</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'lsp/lsp_base.html' %} {% load static %} {% block body %}
+<style>
+  .table tbody tr {
+    margin-bottom: 10px;
+    /* Adjust the value as per your preference */
+  }
+</style>
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Clients</h5>
+            <form
+              id="post-form"
+              method="POST"
+              action="{% url 'checkview' %}"
+              autocomplete="off"
+            >
+              {% csrf_token %}
+              <label>Colleague Username</label>
+              <input
+                type="text"
+                name="friendusername"
+                id="friendusername"
+                width="100px"
+                autocomplete="off"
+                class="form-control"
+              />
+              <br />
+              <div style="text-align: center">
+                <input
+                  type="submit"
+                  value="Enter Room"
+                  class="btn btn-success"
+                />
+              </div>
+            </form>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>
+                    <b>Name</b>
+                  </th>
+
+                  <th rowspan="2">Recent Message</th>
+                  <th>View Messages</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in chat_user %}
+                <tr>
+                  <td>{{ i.first_name }} {{ i.last_name }}</td>
+                  <td>{{ i.username }}</td>
+                  <td>
+                    <a
+                      type="button"
+                      class="btn btn-success"
+                      href="{% url 'lsp:lsp_chat_ui' i.username %}"
+                      >Chat</a
+                    >
+                  </td>
+                </tr>
+                &nbsp; {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<hr />
+<div class="container">
+  <section>
+    <!-- Lawyers List -->
+    <div class="row">
+      {% for profile in service_provider_profiles %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{{ profile.profile_picture.url }}" class="card-img-top" alt="{{ profile.user.username }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ profile.user.first_name }}&nbsp;{{ profile.user.last_name }}</h5>
+            <p class="card-text">{{ profile.bio }}</p>
+            <p class="card-text">Location: {{ profile.city }}, {{ profile.state_province }}</p>
+            <!-- <p class="card-text">
+              Rating: <span class="text-success">★★★★★</span>
+            </p> -->
+            <!-- Add a link to view the full profile -->
+            <a href="#" class="btn btn-primary">View Profile</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

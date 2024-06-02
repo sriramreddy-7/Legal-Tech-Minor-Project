@@ -1,0 +1,111 @@
+{% extends 'client/client_base.html' %} 
+{% block body %}
+<style>
+/*body {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+}*/
+
+.container {
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.sender {
+  background-color: #a9cce3; /* Light blue color */
+}
+
+.receiver {
+  background-color: #f5b7b1; /* Light red color */
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+
+<main id="main" class="main">
+  <div class="container">
+    <h2 class="text-center">Chat Messages</h2>
+    {% for message in messages %}
+      {% if message.sender == request.user %}
+        <div class="container sender">
+          <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user.first_name }}" style="width:100%;">
+          <p>{{ message.content }}</p>
+          <span class="time-right" style="color:brown;">{{ message.timestamp }}</span>
+        </div>
+      {% else %}
+        <div class="container receiver">
+          <img src="{{ message.sender.profile.profile_picture.url }}" alt="{{ message.sender.first_name }}" class="right" style="width:100%;">
+          <p>{{ message.content }}</p>
+          <span class="time-left" style="color:brown;">{{ message.timestamp }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <!-- Form to send messages -->
+    <form id="message-form" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <input class="form-control" type="text" name="content" placeholder="Type your message here..." required>
+      </div>
+      <center>
+      <div class="form-group">
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+      </div>
+      </center>
+    </form>
+  </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Submit form via AJAX
+  $('#message-form').on('submit', function(event){
+    event.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url "client:chat_interface" receiver_id=receiver_id %}',
+      data: $(this).serialize(),
+      success: function(response){
+        // If message sent successfully, reload messages
+        if(response.success){
+          location.reload();
+        }
+      }
+    });
+  });
+});
+</script>
+
+{% endblock %}

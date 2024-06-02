@@ -1,0 +1,71 @@
+{% extends 'client/client_base.html' %} 
+{% block body %}
+<main id="main" class="main">
+  <div class="container">
+    <header class="text-center">
+      <h1 class="display-4">Chat Interface</h1>
+      <!-- Assuming you have a variable called 'receiver' to display the receiver's name -->
+      <div class="d-flex justify-content-center align-items-center">
+        <img src="{{ receiver.profile.profile_picture.url }}" alt="{{ receiver.first_name }}" width="50" height="50" class="rounded-circle mr-3">
+        <h3>{{ receiver.first_name }}</h3>
+      </div>
+    </header>
+    <div class="row rounded-lg overflow-hidden shadow">
+      <!-- Users box -->
+      <div class="col-5 px-0">
+        <div class="bg-white">
+          <div class="bg-gray px-4 py-2 bg-light">
+            <p class="h5 mb-0 py-1">Recent</p>
+          </div>
+          <div class="messages-box">
+            <div class="list-group rounded-0">
+              <!-- List of recent messages -->
+              <!-- You can iterate through recent messages here if needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Chat Box -->
+      <div class="col-7 px-0">
+        <div id="chat-messages">
+          {% for message in messages %}
+          <div class="message">
+            {% if message.sender == request.user %}
+            <div class="sent">
+              <p>
+                <strong>{{ request.user.first_name }}</strong>: {{ message.content }}
+              </p>
+            </div>
+            {% else %}
+            <div class="received">
+              <p>
+                <strong>{{ message.sender.first_name }}</strong>: {{ message.content }}
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+       
+        <form id="message-form" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="content"
+              id="message-input"
+              rows="3"
+              maxlength="100"
+              placeholder="Type your message..."
+            ></textarea>
+          </div>
+          <center>
+            <br />
+            <button type="submit" class="btn btn-primary">Send</button>
+          </center>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

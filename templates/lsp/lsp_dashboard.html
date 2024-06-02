@@ -1,0 +1,180 @@
+{% extends 'lsp/lsp_base.html' %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<main id="main" class="main">
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+
+                    <!-- Today's Appointments Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Today's Appointments</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% for appointment in today_appointments %}{{ appointment.client.username }}{% if not forloop.last %}, {% endif %}{% endfor %}0</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Today's Appointments Card -->
+
+                    <!-- Total Clients Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Clients</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ total_clients }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Total Clients Card -->
+
+                    <!-- Past Appointments Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Past Appointments</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-calendar-times-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% for appointment in past_appointments %}{{ appointment.client.username }}{% if not forloop.last %}, {% endif %}{% endfor %}1</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Past Appointments Card -->
+
+                    <!-- Upcoming Appointments Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Upcoming Appointments</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-calendar-plus-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% for appointment in upcoming_appointments %}{{ appointment.client.username }}{% if not forloop.last %}, {% endif %}{% endfor %}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Upcoming Appointments Card -->
+
+                    <!-- Profile Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Profile</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-user-circle-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ user_profile.user.username }}</h6>
+                                        <p>{{ user_profile.bio }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Profile Card -->
+
+                    <!-- Messages Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Messages</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-envelope-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <!-- Add logic to display recent messages -->
+                                        <h6>2</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Messages Card -->
+
+                    <!-- Case Documents Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Case Documents</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-file-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <!-- Add logic to display recent case documents -->
+                                        <h6>5</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Case Documents Card -->
+
+                    <!-- Appointment Requests Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Appointment Requests</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <!-- Add logic to display pending appointment requests -->
+                                        <h6>1</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Appointment Requests Card -->
+
+                  
+                    <!-- <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- Additional Cards and Sections Can Be Added Here -->
+
+                </div>
+            </div><!-- End Left side columns -->
+
+        </div>
+    </section>
+
+</main>
+{% endblock %}

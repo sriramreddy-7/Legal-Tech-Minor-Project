@@ -1,0 +1,168 @@
+{% extends 'client/client_base.html' %} {% load static %} {% block body %}
+
+<main id="main" class="main">
+  <!-- End Page Title -->
+
+  <section class="section contact">
+    <div class="row gy-4 justify-content-center">
+      <div class="col-xl-12">
+        <div class="card p-4">
+          <!-- Profile Picture, First Name, and Last Name of the LSP User -->
+          <div class="row align-items-center mb-4">
+            <div class="col-md-3">
+              {% if lsp.user.profile.profile_picture %}
+              <img
+                src="{{ lsp.user.profile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="img-fluid"
+              />
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Appointment Request Form -->
+          <form
+            action="{% url 'client:client_lsp_consult' lsp.enrollment_number %}"
+            method="post"
+            target="_blank"
+            class="php-email-form"
+          >
+            {% csrf_token %}
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{lsp.user.first_name}}"
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="{{lsp.user.last_name}}"
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  name="client_name"
+                  class="form-control"
+                  placeholder="Enter Name"
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="tel"
+                  name="phone_number"
+                  class="form-control"
+                  placeholder="Phone Number"
+                />
+              </div>
+              <div class="col-md-12">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div class="col-md-12">
+                <select class="form-select" name="gender" required>
+                  <option value="" selected disabled>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  placeholder="Address"
+                  required
+                />
+              </div>
+
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="occupation"
+                  placeholder="Occupation"
+                  required
+                />
+              </div>
+
+              <div class="col-md-12">
+                <select class="form-select" name="case_type" required>
+                  <option value="" selected disabled>Select Case Type</option>
+                  <option value="Family">Family</option>
+                  <option value="Civil">Civil</option>
+                  <option value="Criminal">Criminal</option>
+                </select>
+              </div>
+
+              <div class="col-md-12">
+                <textarea
+                  class="form-control"
+                  name="case_info"
+                  rows="6"
+                  placeholder="Case Info"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="col-md-12">
+                <label for="date_time">Select Date and Time:</label>
+                <input
+                  type="datetime-local"
+                  id="date_time"
+                  name="date_time"
+                  class="form-control"
+                  min="{% now 'Y-%m-%dT%H:%M' %}"
+                  required
+                />
+              </div>
+
+              <!-- Hidden input field to hold the name of the service provider -->
+              <input
+                type="hidden"
+                name="service_provider_name"
+                value="{{ lsp.user.username }}"
+              />
+
+              <div class="col-md-12 text-center">
+                <div class="loading">Loading</div>
+
+                <div class="sent-message">
+                  Your appointment request has been sent. Thank you!
+                </div>
+
+                <button type="submit">Send Request and Book Appointment</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- <script>
+  // Function to display alert and redirect upon successful form submission
+  function handleFormSubmission() {
+    // Display alert
+    alert("Your appointment request has been booked. Awaiting confirmation from the service provider.");
+    
+    // Redirect to client_appointments.html after 3 seconds
+    setTimeout(function() {
+      window.location.href = "{% url 'client:client_lsp_consult' lsp.enrollment_number %}";
+    }, 3000); // 3000 milliseconds = 3 seconds
+  }
+</script> -->
+
+{% endblock %}

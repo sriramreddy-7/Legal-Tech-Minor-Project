@@ -1,0 +1,124 @@
+{% extends 'client/client_base.html' %}
+{% load static %}
+
+{% block body %}
+
+<main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile Information</h5>
+                        <p>Name: {{ request.user.first_name }}</p>
+                        <p>Email: {{ request.user.email }}</p>
+                        <!-- <p>Phone Number: {{ user_profile.phone_number }}</p>
+                        <p>Address: {{ user_profile.address }}</p> -->
+                    </div>
+                </div>
+            </div>
+      </div>
+        <div class="row">
+          
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Upcoming Appointments</h5>
+                        <ul>
+                            {% for appointment in upcoming_appointments %}
+                            <li>{{ appointment.date_time }} - {{ appointment.service_provider }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Messages</h5>
+                        <ul>
+                            {% for message in recent_messages %}
+                            <li>{{ message.content }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Requests</h5>
+                        <ul>
+                            {% for request in appointment_requests %}
+                            <li>{{ request.date_time }} - {{ request.service_provider }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quick Links</h5>
+                        <ul>
+                            <li><a href="">Schedule Appointment</a></li>
+                            <li><a href="">View Messages</a></li>
+                            <li><a href="">Update Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Calendar</h5>
+                        <!-- Calendar code goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recommended Services</h5>
+                        <!-- Recommended services code goes here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Legal Resources</h5>
+                        <!-- Legal resources code goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Feedback Section</h5>
+                        <!-- Feedback section code goes here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Help/Support</h5>
+                        <!-- Help/support section code goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

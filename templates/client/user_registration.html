@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>User Registration</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Favicons -->
+  <link href="{% static 'dash/img/favicon.png' %}" rel="icon" />
+  <link href="{% static 'dash/img/apple-touch-icon.png' %}" rel="apple-touch-icon" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'dash/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/quill/quill.snow.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/quill/quill.bubble.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/remixicon/remixicon.css' %}" rel="stylesheet" />
+  <link href="{% static 'dash/vendor/simple-datatables/style.css' %}" rel="stylesheet" />
+
+  <link href="{% static 'dash/css/style.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  <main>
+    <div class="container">
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg col-md-12 d-flex flex-column align-items-center justify-content-center">
+              <div class="d-flex justify-content-center py-4">
+                <a href="{% url 'home' %}" class="logo d-flex align-items-center w-auto">
+                  <img src="{% static 'dash/img/logo.png' %}" alt="" />
+                  <span class="d-none d-lg-block">Legal Tech</span>
+                </a>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">
+                      Create an Account
+                    </h5>
+                    <p class="text-center small">
+                      Enter your personal details to create account
+                    </p>
+                  </div>
+
+                  <form action="{% url 'user_registration' %}" method="post" class="row g-3 needs-validation"
+                    novalidate>
+                    {% csrf_token %}
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">First Name</label>
+                      <input type="text" name="fname" class="form-control" id="yourName" required />
+                      <div class="invalid-feedback">
+                        Please, enter your First Name!
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Last Name</label>
+                      <input type="text" name="lname" class="form-control" id="yourName" required />
+                      <div class="invalid-feedback">
+                        Please, enter your Last Name!
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Username</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="username" class="form-control" id="yourUsername" required />
+                        <div class="invalid-feedback">
+                          Please choose a username,username must be small
+                          letters !
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Your Email</label>
+                      <input type="email" name="email" class="form-control" id="yourEmail" required />
+                      <div class="invalid-feedback">
+                        Please enter a valid Email adddress!
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="mnumber" class="form-label">Mobile Number</label>
+                      <input type="number" name="mnumber" class="form-control" id="mnumber" required />
+                      <div class="invalid-feedback">
+                        Please enter a valid Mobile Number!
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="dob" class="form-label">Date of Birth</label>
+                      <input type="date" name="dob" class="form-control" id="dob" required />
+                      <div class="invalid-feedback">
+                        Please enter a valid Mobile Number!
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="gender" class="form-label">Gender</label>
+                      <select name="gender" class="form-select" id="gender" required>
+                        <option value="" disabled selected>
+                          Select your gender
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a gender!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required />
+                      <div class="invalid-feedback">
+                        Please enter your password!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms"
+                          required />
+                        <label class="form-check-label" for="acceptTerms">I agree and accept the
+                          <a href="#">terms and conditions</a></label>
+                        <div class="invalid-feedback">
+                          You must agree before submitting.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">
+                        Create Account
+                      </button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">
+                        Already have an account?
+                        <a href="{% url 'user_login' %}">Log in</a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="{% static 'dash/vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'dash/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'dash/vendor/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'dash/vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'dash/vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'dash/vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'dash/vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'dash/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'dash/js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends 'admin/admin_base.html' %}
+{% block body %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>User Details</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">User Details</h5>
+
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th><b>Name</b></th>
+                  <th>Email Id</th>
+                  <th>Username</th>
+                  <th data-type="date" data-format="YYYY/DD/MM">Joined Date</th>
+                  <th>User Type</th>
+                  <!-- <th>Status</th>
+                  <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                {% for profile in profile %}
+                <tr>
+                  <td>
+                    {% if profile.profile_picture %}
+                    <img
+                      src="{{ profile.profile_picture.url }}"
+                      alt="Profile"
+                      style="max-height: 50px"
+                    />
+                    {% else %} No Profile Picture  {% endif %}
+                  </td>
+                  <td>
+                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                  </td>
+                  <td>{{ profile.user.email }}</td>
+                  <td>{{ profile.user.username }}</td>
+                  <td>{{ profile.user.date_joined }}</td>
+                  <td>{{ profile.account_type }}</td>
+                  <!-- <td>
+                    {% if not profile.is_service_provider %}
+                    <span class="badge bg-success">Active</span>
+                    {% else %}
+                    <span class="badge bg-warning">Waiting</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a
+                      type="button"
+                      href="{% url 'admin_app:admin_lsp_profile' profile.user.username %}"
+                      class="btn btn-primary"
+                    >
+                      <i class="bi bi-info-circle"></i>&nbsp;View
+                    </a>
+                  </td> -->
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

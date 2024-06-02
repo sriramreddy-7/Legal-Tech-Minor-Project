@@ -1,0 +1,18 @@
+{% autoescape off %}
+
+Welcome to Law Desk - Login!!
+
+Hello {{ name }}!!
+
+Thank you for signing up with Law Desk. Your profile has been successfully verified.
+To complete your registration and access your account, Please confirm your email by clicking on the following link:
+
+Confirmation Link: http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+You now have full access to our services. Log in to start using our platform.
+If you have any questions or need assistance, feel free to reach out to our support team at support@lawdesk.com.
+
+Best regards,
+The Law Desk Team
+
+{% endautoescape %}

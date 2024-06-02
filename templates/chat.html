@@ -1,0 +1,51 @@
+<!-- templates/chat/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        #chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="message-list"></div>
+        <input type="text" id="message" placeholder="Type your message">
+        <button id="send">Send</button>
+    </div>
+
+    <script>
+        function loadMessages() {
+            $.get('/get_messages/', function(data) {
+                $('#message-list').empty();
+                data.messages.forEach(function(msg) {
+                    $('#message-list').append(`<p>${msg.timestamp} - ${msg.user}: ${msg.content}</p>`);
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            loadMessages();
+            setInterval(loadMessages, 5000); // Reload messages every 5 seconds
+
+            $('#send').click(function() {
+                var content = $('#message').val();
+                $.post('/post_message/', {content: content}, function() {
+                    loadMessages();
+                    $('#message').val('');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

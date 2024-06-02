@@ -1,0 +1,56 @@
+{% extends 'client/client_base.html' %} {% block body %}
+<main id="main" class="main">
+  <div class="container">
+    <h2 class="card-title">Messages</h2>
+    <div class="row">
+         <div class="card-body">
+      <div class="col-md-12">
+        <!-- Search bar -->
+        <input
+          type="text"
+          id="searchBar"
+          class="form-control mb-3"
+          placeholder="Search for service providers"
+        />
+        <!-- Horizontal line -->
+        <hr />
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- List of service providers -->
+      <div class="col-md-12">
+        {% for service_provider in service_providers %}
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img
+                src="{{ service_provider.profile.profile_picture.url }}"
+                class="card-img"
+                alt="Profile Picture"
+                style="max-width: 100px"
+              />
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title" style="padding-top: 35px">
+                  {{ service_provider.first_name }}
+                  {{service_provider.last_name}}
+                </h5>
+                <!-- You can add additional information here if needed -->
+              </div>
+            </div>
+            <div class="col-md-2" style="padding-top: 30px">
+    <a href="{% url 'client:chat_interface' service_provider.id %}" type="button" class="btn btn-primary"> 
+        <i class="bi bi-chat" style="font-size:25px; color: #03010b;"></i>
+    </a>
+</div>
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,672 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>User Registration</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="{% static 'dash/img/favicon.png' %}" rel="icon" />
+    <link
+      href="{% static 'dash/img/apple-touch-icon.png' %}"
+      rel="apple-touch-icon"
+    />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="{% static 'dash/vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/bootstrap-icons/bootstrap-icons.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/boxicons/css/boxicons.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/quill/quill.snow.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/quill/quill.bubble.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/remixicon/remixicon.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'dash/vendor/simple-datatables/style.css' %}"
+      rel="stylesheet"
+    />
+
+    <link href="{% static 'dash/css/style.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% for message in messages %}
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-octagon me-1"></i>
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %}
+    <main>
+      <div class="container">
+        <section
+          class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+        >
+          <div class="container">
+            <div class="row justify-content-center">
+              <div
+                class="col-lg col-md-12 d-flex flex-column align-items-center justify-content-center"
+              >
+                <div class="d-flex justify-content-center py-4">
+                  <a
+                    href="{% url 'home' %}"
+                    class="logo d-flex align-items-center w-auto"
+                  >
+                    <img src="{% static 'dash/img/logo.png' %}" alt="" />
+                    <span class="d-none d-lg-block">Legal Tech</span>
+                  </a>
+                </div>
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="pt-4 pb-2">
+                      <h5 class="card-title text-center pb-0 fs-4">
+                        Create an Account
+                      </h5>
+                      <p class="text-center small">
+                        Enter your personal details to create account
+                      </p>
+                    </div>
+
+                    <form
+                      action="{% url 'accounts:lsp_registration' %}"
+                      method="post"
+                      enctype="multipart/form-data"
+                      class="row g-3 needs-validation"
+                      novalidate
+                    >
+                      {% csrf_token %}
+                      <div class="col-6">
+                        <label for="yourName" class="form-label"
+                          >First Name</label
+                        >
+                        <input
+                          type="text"
+                          name="fname"
+                          class="form-control"
+                          id="yourName"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please, enter your First Name!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="yourName" class="form-label"
+                          >Last Name</label
+                        >
+                        <input
+                          type="text"
+                          name="lname"
+                          class="form-control"
+                          id="yourName"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please, enter your Last Name!
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="yourUsername" class="form-label"
+                          >Username</label
+                        >
+                        <div class="input-group has-validation">
+                          <span class="input-group-text" id="inputGroupPrepend"
+                            >@</span
+                          >
+                          <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            id="yourUsername"
+                            required
+                          />
+                          <div class="invalid-feedback">
+                            Please choose a username,username must be small
+                            letters !
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="yourEmail" class="form-label"
+                          >Your Email</label
+                        >
+                        <input
+                          type="email"
+                          name="email"
+                          class="form-control"
+                          id="yourEmail"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter a valid Email adddress!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="mnumber" class="form-label"
+                          >Mobile Number</label
+                        >
+                        <input
+                          type="text"
+                          name="mnumber"
+                          class="form-control"
+                          id="mnumber"
+                          maxlength="10"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter a valid Mobile Number!
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="dob" class="form-label"
+                          >Date of Birth</label
+                        >
+                        <input
+                          type="date"
+                          name="dob"
+                          class="form-control"
+                          id="dob"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter a valid Date of Birth!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="age"
+                          name="age"
+                          readonly
+                        />
+                      </div>
+
+                      <div class="col-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select
+                          name="gender"
+                          class="form-select"
+                          id="gender"
+                          required
+                        >
+                          <option value="" disabled selected>
+                            Select your gender
+                          </option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a gender!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="country" class="form-label">Country</label>
+                        <select
+                          name="country"
+                          class="form-select"
+                          id="country"
+                          required
+                        >
+                          <option value="" disabled selected>
+                            Select your country
+                          </option>
+                          <option value="India">India</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select your country!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="state" class="form-label"
+                          >State/Province</label
+                        >
+                        <select
+                          name="state"
+                          class="form-select"
+                          id="state"
+                          required
+                        >
+                          <option value="" disabled selected>
+                            Select your state/province
+                          </option>
+                          <option value="Telangana">Telangana</option>
+                          <option value="Tamil Nadu">Tamil Nadu</option>
+                          <!-- Options will be dynamically populated based on selected country -->
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select your state/province!
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="city" class="form-label">City</label>
+                        <input
+                          type="text"
+                          name="city"
+                          class="form-control"
+                          id="city"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter your city!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="zip" class="form-label">Zip Code</label>
+                        <input
+                          type="text"
+                          name="zipcode"
+                          class="form-control"
+                          id="zip"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter your zip code!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="lsp_type" class="form-label"
+                          >Legal Service Provider Type</label
+                        >
+                        <select
+                          name="lsp_type"
+                          class="form-select"
+                          id="lsp_type"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Select LSP Type
+                          </option>
+
+                          <option value="Lawyer">Lawyer</option>
+                          <option value="Advocate">Advocate</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select the Legal Service Provider Type!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="enrollment_number" class="form-label"
+                          >Enrollment Number</label
+                        >
+                        <input
+                          type="text"
+                          name="enrollment_number"
+                          class="form-control"
+                          id="enrollment_number"
+                          maxlength="12"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter the Enrollment Number!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="display_picture" class="form-label"
+                          >Profile Picture</label
+                        >
+                        <input
+                          type="file"
+                          name="profile_picture"
+                          class="form-control"
+                          id="profile_picture"
+                        />
+                      </div>
+
+                      <div class="col-6">
+                        <label for="signature" class="form-label"
+                          >Signature</label
+                        >
+                        <input
+                          type="file"
+                          name="signature"
+                          class="form-control"
+                          id="signature"
+                        />
+                      </div>
+
+                      <div class="col-6">
+                        <label
+                          for="bar_council_practicing_certificate"
+                          class="form-label"
+                          >Bar Council Practicing Certificate</label
+                        >
+                        <input
+                          type="file"
+                          name="bcpc"
+                          class="form-control"
+                          id="bar_council_practicing_certificate"
+                        />
+                      </div>
+                      <div class="col-6">
+                        <label for="university_llb_completed" class="form-label"
+                          >University LLB Completed</label
+                        >
+                        <select
+                          name="university_name"
+                          class="form-select"
+                          id="university_llb_completed"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Select University
+                          </option>
+
+                          <option
+                            value="National Law School of India University, Bangalore"
+                          >
+                            National Law School of India University, Bangalore
+                          </option>
+                          <option value="National Law University, Delhi">
+                            National Law University, Delhi
+                          </option>
+                          <option value="NALSAR University of Law, Hyderabad">
+                            NALSAR University of Law, Hyderabad
+                          </option>
+
+                          <option
+                            value="The West Bengal National University of Juridical Sciences, Kolkata"
+                          >
+                            The West Bengal National University of Juridical
+                            Sciences, Kolkata
+                          </option>
+
+                          <option value="National Law University, Jodhpur">
+                            National Law University, Jodhpur
+                          </option>
+
+                          <option value="National Law University, Odisha">
+                            National Law University, Odisha
+                          </option>
+                          <option value="National Law University, Lucknow">
+                            National Law University, Lucknow
+                          </option>
+                          <option value="Symbiosis Law School, Pune">
+                            Symbiosis Law School, Pune
+                          </option>
+                          <option
+                            value="Jamia Millia Islamia, Faculty of Law, New Delhi"
+                          >
+                            Jamia Millia Islamia, Faculty of Law, New Delhi
+                          </option>
+                          <option value="National Law University, Gujarat">
+                            National Law University, Gujarat
+                          </option>
+
+                          <option
+                            value="Rajiv Gandhi National University of Law, Patiala"
+                          >
+                            Rajiv Gandhi National University of Law, Patiala
+                          </option>
+
+                          <option
+                            value="Dr. Ram Manohar Lohiya National Law University, Lucknow"
+                          >
+                            Dr. Ram Manohar Lohiya National Law University,
+                            Lucknow
+                          </option>
+
+                          <option
+                            value="National Law University and Judicial Academy, Assam"
+                          >
+                            National Law University and Judicial Academy, Assam
+                          </option>
+
+                          <option value="National Law University, Kerala">
+                            National Law University, Kerala
+                          </option>
+                          <option value="National Law University, Tamil Nadu">
+                            National Law University, Tamil Nadu
+                          </option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select the University where LLB was completed!
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="llb_passout_year" class="form-label"
+                          >LLB Passout Year</label
+                        >
+                        <select
+                          name="llb_passout_year"
+                          class="form-select"
+                          id="llb_passout_year"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Select Passout Year
+                          </option>
+
+                          <option value="2024">2024</option>
+                          <option value="2023">2023</option>
+                          <option value="2022">2022</option>
+                          <option value="2021">2021</option>
+                          <option value="2020">2020</option>
+                          <option value="2019">2019</option>
+                          <option value="2018">2018</option>
+                          <option value="2017">2017</option>
+                          <option value="2016">2016</option>
+                          <option value="2015">2015</option>
+                          <option value="2014">2014</option>
+                          <option value="2013">2013</option>
+                          <option value="2012">2012</option>
+                          <option value="2011">2011</option>
+                          <option value="2010">2010</option>
+                          <option value="2009">2009</option>
+                          <option value="2008">2008</option>
+                          <option value="2007">2007</option>
+                          <option value="2006">2006</option>
+                          <option value="2005">2005</option>
+                          <option value="2004">2004</option>
+                          <option value="2003">2003</option>
+                          <option value="2002">2002</option>
+                          <option value="2001">2001</option>
+                          <option value="2000">2000</option>
+                          <option value="1999">1999</option>
+                          <option value="1998">1998</option>
+                          <option value="1997">1997</option>
+                          <option value="1996">1996</option>
+                          <option value="1995">1995</option>
+                          <option value="1994">1994</option>
+                          <option value="1993">1993</option>
+                          <option value="1992">1992</option>
+                          <option value="1991">1991</option>
+                          <option value="1990">1990</option>
+                          <option value="1989">1989</option>
+                          <option value="1988">1988</option>
+                          <option value="1987">1987</option>
+                          <option value="1986">1986</option>
+                          <option value="1985">1985</option>
+                          <option value="1984">1984</option>
+                          <option value="1983">1983</option>
+                          <option value="1982">1982</option>
+                          <option value="1981">1981</option>
+                          <option value="1980">1980</option>
+                          <!-- Add more options if needed -->
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select the LLB Passout Year!
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <label for="enrollment_year" class="form-label"
+                          >Enrollment Year</label
+                        >
+                        <select
+                          name="enrollment_year"
+                          class="form-select"
+                          id="enrollment_year"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Select Enrollment Year
+                          </option>
+                        </select>
+
+                        <div class="invalid-feedback">
+                          Please select the Enrollment Year!
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="yourPassword" class="form-label"
+                          >Password</label
+                        >
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="yourPassword"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter your password!
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="" class="form-label"
+                          >Confirm Password</label
+                        >
+                        <input
+                          type="password"
+                          name="passwor"
+                          class="form-control"
+                          id=""
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please enter your password!
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            name="terms"
+                            type="checkbox"
+                            value=""
+                            id="acceptTerms"
+                            required
+                          />
+                          <label class="form-check-label" for="acceptTerms"
+                            >I agree and accept the
+                            <a href="#">terms and conditions</a></label
+                          >
+                          <div class="invalid-feedback">
+                            You must agree before submitting.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button class="btn btn-success w-100" type="submit">
+                          Create Account
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <p class="small mb-0">
+                          Already have an account?
+                          <a href="#">Log in</a>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      document
+        .getElementById("llb_passout_year")
+        .addEventListener("change", function () {
+          var llbPassoutYear = parseInt(this.value);
+          var enrollmentYearDropdown =
+            document.getElementById("enrollment_year");
+          enrollmentYearDropdown.innerHTML =
+            '<option value="" selected disabled>Select Enrollment Year</option>';
+
+          for (var year = llbPassoutYear + 1; year <= 2024; year++) {
+            var option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            enrollmentYearDropdown.appendChild(option);
+          }
+        });
+      document.getElementById("dob").addEventListener("change", function () {
+        var dobInput = document.getElementById("dob").value;
+        var dob = new Date(dobInput);
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < dob.getDate())
+        ) {
+          age--;
+        }
+
+        document.getElementById("age").value = age;
+
+        // Validate age
+        if (age < 21) {
+          alert("You must be at least 21 years old.");
+          document.getElementById("dob").value = ""; // Clear the date input
+          document.getElementById("age").value = ""; // Clear the age input
+        }
+      });
+    </script>
+    <script src="{% static 'dash/vendor/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'dash/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dash/vendor/chart.js/chart.umd.js' %}"></script>
+    <script src="{% static 'dash/vendor/echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'dash/vendor/quill/quill.min.js' %}"></script>
+    <script src="{% static 'dash/vendor/simple-datatables/simple-datatables.js' %}"></script>
+    <script src="{% static 'dash/vendor/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'dash/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'dash/js/main.js' %}"></script>
+  </body>
+</html>
