@@ -14,11 +14,8 @@ cryptography==41.0.7
 dataclasses-json==0.6.3
 defusedxml==0.7.1
 distro==1.9.0
-dj-database-url==2.0.0
 Django==4.2.1
-django-allauth==0.59.0
 django-cors-headers==4.2.0
-djangorestframework==3.14.0
 dnspython==2.4.2
 exceptiongroup==1.2.0
 faiss-cpu==1.7.4
@@ -35,8 +32,6 @@ langsmith==0.0.80
 marshmallow==3.20.2
 multidict==6.0.4
 mypy-extensions==1.0.0
-numpy==1.26.3
-oauthlib==3.2.2
 packaging==23.2
 Pillow==10.0.0
 psycopg2-binary==2.9.6
