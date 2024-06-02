@@ -23,16 +23,12 @@ def client_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            # if username == 'lawyer':
+            
             return redirect("client:client_dashboard")
-            # elif username == 'admin':
-            #     return redirect('admin_dashboard')
-            # else:
-            #     return render(request,'server/error-404.html')
                 
         else:
             messages.error(request, "Bad Credentials!!")
-            return redirect('client/client_login')
+            return render(request,'client/client_login.html')
 
     return render(request,'client/client_login.html')
 
@@ -247,13 +243,14 @@ def lsp_registration(request):
        password = request.POST.get('password') 
        mnumber=request.POST.get('mnumber')
        dob=request.POST.get('dob')       
-    #    gender=request.POST.get('gender')
+       gender=request.POST.get('gender')
+       age=request.POST.get('age')
        country=request.POST.get('country')
        state= request.POST.get('state')
        city= request.POST.get('city')
        zipcode=request.POST.get('zipcode')
        lsp_type=request.POST.get('lsp_type')
-       display_picture=request.FILES.get('display_picture')
+       profile_picture=request.FILES.get('profile_picture')
        signature=request.FILES.get('signature')
        enrollment_number=request.POST.get('enrollment_number')
        enrollment_year =request.POST.get('enrollment_year')
@@ -268,9 +265,7 @@ def lsp_registration(request):
            messages.error(request, "Email Already Registered!!")
            return redirect('accounts:lsp_registration')
        
-       if not username.isalnum():
-           messages.error(request, "Username must be Alpha-Numeric!!")
-       
+
        myuser = User.objects.create_user(username=username, email=email, password=password)
        myuser.first_name = fname
        myuser.last_name = lname
@@ -281,11 +276,13 @@ def lsp_registration(request):
            user=myuser,
            phone_number=mnumber,
            date_of_birth=dob,
-        #    gender=gender,
-            age=7,
+           gender=gender,
+           age=age,
+           profile_picture=profile_picture,
            country=country,
            state_province=state,
            address_line=city,
+           city=city,
            zip_code=zipcode
            )
        profile_user.save()
@@ -293,7 +290,6 @@ def lsp_registration(request):
        lsp_user=LSP.objects.create(
            user=myuser,
            lsp_type=lsp_type,
-           display_picture=display_picture,
            signature=signature,
            enrollment_number=enrollment_number,
            bar_council_practicing_certificate=bcpc,
