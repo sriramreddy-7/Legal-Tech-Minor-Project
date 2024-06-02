@@ -15,14 +15,29 @@ from django.shortcuts import get_object_or_404
 
 
 def admin_dashboard(request):
-    return render(request,'admin/admin_dashboard.html')
+    total_clients = Profile.objects.filter(is_client=True).count()
+    total_service_providers = LSP.objects.count() 
+    clients_data = Profile.objects.filter(is_client=True).values_list('account_creation_date', flat=True)
+    service_providers_data = LSP.objects.values_list('enrollment_year', flat=True)
+    clients_data = list(map(lambda d: d.strftime('%Y-%m-%dT%H:%M:%S.%fZ'), clients_data))
+    service_providers_data = list(map(str, service_providers_data))
+    recent_lsp_profiles = LSP.objects.order_by('-user__date_joined')[:5]
+    
+    context = {
+        'total_clients': total_clients,
+        'total_service_providers': total_service_providers,
+        'clients_data': clients_data,
+        'service_providers_data': service_providers_data,
+         'recent_lsp_profiles': recent_lsp_profiles,
+    }
+    return render(request, 'admin/admin_dashboard.html', context)
 
 
-def users_list(request):
+"""def users_list(request):
     # user_det=User.objects.all()
     # profile_user=Profile.objects.all()
     # lsp_users= LSP.objects.all()
-    lsp_users = LSP.objects.filter(lsp_type='Lawyer')
+    lsp_users = LSP.objects.all()
     profiles = Profile.objects.filter(user__in=lsp_users.values('user'))
     user_det = User.objects.filter(pk__in=lsp_users.values('user'))
 
@@ -39,12 +54,26 @@ def users_list(request):
         'profiles_with_lsps': profiles_with_lsps,
     }
     
-    return render(request,'admin/users_list.html',context)
-    
-    # return render(request,'admin/users_list.html')
+    return render(request,'admin/users_list.html',context)"""
     
     
+
+def users_list(request):
+    lsp_users = LSP.objects.all()
+    users_data = []
+    for lsp_user in lsp_users:
+        profile = Profile.objects.get(user=lsp_user.user)
+        users_data.append({
+            'user_det': lsp_user.user,
+            'lsp_user': lsp_user,
+            'profile': profile,
+        })
+    context = {
+        'users_data': users_data,
+    }
+    return render(request, 'admin/users_list.html', context)
    
+
 def verify_profile(request,username):
     if request.method=="POST":
         myuser = get_object_or_404(User, username=username)
@@ -107,3 +136,10 @@ def admin_lsp_profile(request,username):
    
    
  
+def clients_users_list(request):
+    profile=Profile.objects.filter(is_service_provider=False)
+    context={
+        'profile':profile,
+    }
+    return render(request,'admin/clients_users_list.html',context)
+    

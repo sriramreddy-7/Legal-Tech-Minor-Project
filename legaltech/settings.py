@@ -39,13 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
-    #  'djongo',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.github',
     'accounts',
     "home",
     "client",
@@ -97,44 +90,19 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-#SITE_ID=1
-# 240318269996-2ujo6ujdtq45cukgergu7qn7vdfk8idi.apps.googleusercontent.com
-# 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
+
 
 WSGI_APPLICATION = 'legaltech.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-import dj_database_url
-
 DATABASES = {
-    # 'default': dj_database_url.parse('postgresql://postgres:dC4GCC-6g3Efg3FFBGffcC6cCbG*-BCC@roundhouse.proxy.rlwy.net:21684/railway')
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',  # Use your local database engine
-    #     'NAME': BASE_DIR / "db.sqlite3",  # Adjust the path as needed
-    # },
-     'default': dj_database_url.parse('postgres://crazycoders:MkaIZ4K82Qf4FsK8DmXcFeZ2CAIM2vaw@dpg-cm8p4p6d3nmc73b0dojg-a.oregon-postgres.render.com/pec_render_database'),
-    # 'default': dj_database_url.parse('postgres://crazycoders:MkaIZ4K82Qf4FsK8DmXcFeZ2CAIM2vaw@dpg-cm8p4p6d3nmc73b0dojg-a.oregon-postgres.render.com/pec_render_database')
-    # 'default': dj_database_url.parse('postgres://crazycoders:MkaIZ4K82Qf4FsK8DmXcFeZ2CAIM2vaw@dpg-cm8p4p6d3nmc73b0dojg-a.oregon-postgres.render.com/pec_render_database')
-    
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
-
-
-
-# DATABASES={
-#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
-
-
 
 
 
@@ -178,7 +146,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build','static') # here static
 MEDIA_URLS ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Also Make aure To set allowed_hosts to '*'
 
 # CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATICFILES_DIRS=[
@@ -211,44 +178,9 @@ EMAIL_TIMEOUT = None
 STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
-# from decouple import config
-
-# OPENAI_API_KEY = config('OPENAI_API_KEY')
 
 
-# LOGIN_REDIRECT_URL = 'home'
 
-# ACCOUNT_LOGOUT_REDIRECT_URL = 'user_login'
-
-# ACCOUNT_EMAIL_REQUIRED = True
-
-# SOCIALACCOUNT_QUERY_EMAIL = True
-
-# ACCOUNT_SESSION_REMEMBER = True
-
-# SOCIALACCOUNT_PROVIDERS = {
-#     'facebook': {
-#         'METHOD': 'oauth2',
-#         'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
-#         'SCOPE': ['email', 'public_profile'],
-#         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-#         'INIT_PARAMS': {'cookie': True},
-#         'FIELDS': [
-#             'id',
-#             'first_name',
-#             'last_name',
-#             'middle_name',
-#             'name',
-#             'name_format',
-#             'picture',
-#             'short_name'
-#         ],
-#         'EXCHANGE_TOKEN': True,
-#         # 'LOCALE_FUNC': 'path.to.callable',
-#         'VERIFIED_EMAIL': False,
-#         'VERSION': 'v7.0',
-#     }
-# }
 
 
 

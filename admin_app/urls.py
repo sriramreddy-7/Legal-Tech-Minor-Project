@@ -13,5 +13,6 @@ urlpatterns=[
     path("admin_dashboard",views.admin_dashboard,name="admin_dashboard"),
     path('verify_profile/<str:username>/',views.verify_profile,name="verify_profile"),
     path('users_list',views.users_list,name="users_list"),
+    path("clients_users_list",views.clients_users_list,name="clients_users_list"),
     
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

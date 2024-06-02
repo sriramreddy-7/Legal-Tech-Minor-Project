@@ -35,6 +35,8 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path("service",views.service,name="service"),
     path("chatbot",views.home_chatbot,name="chatbot"),
+    path("test",views.test,name="test"),
+    path('law_directory',views.law_directory,name="law_directory"),
     
     
     path('chat_users_list',views.chat_users_list,name="chat_users_list"),

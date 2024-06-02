@@ -12,24 +12,36 @@ from django.contrib.auth import authenticate, login, logout
 from accounts.tokens import generate_token
 from accounts.models import Profile,LSP,Message
 from django.shortcuts import get_object_or_404
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
 from accounts.models import Friend,Msg,Fileupload
 from django.http import JsonResponse
-<<<<<<< HEAD
-=======
-# chat/views.py
-# import base64
->>>>>>> 5e641178c104d0d7f1bdf187725efee6cfa180f1
+
 from accounts.models import Chat
 
 from django.utils import timezone
 # from django.contrib.auth.decorators import login_required
 # from .models import Message, UserProfile
 
+def test(request):
+    return render(request,'test.html')
+
+def law_directory(request):
+    service_provider_profiles = Profile.objects.filter(is_service_provider=True)
+    context = {
+        'service_provider_profiles': service_provider_profiles
+    }
+
+    # Render the law directory template with the context
+    return render(request, 'law_directory/law_directory.html', context)
 
 def home(request):
-    return render(request,'home.html')
+    profile=Profile.objects.filter(is_service_provider=True)
+    context={
+        'profile':profile,
+    }
+    return render(request,'home.html',context)
 
 def service(request):
     return render(request,'service.html')
@@ -77,23 +89,27 @@ def chat_users_list(request):
         return render(request, 'chatapp/chat_users_list.html',context)
     else:
         return HttpResponse("Data Base Error")
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 5e641178c104d0d7f1bdf187725efee6cfa180f1
+ 
 
 def chatbot(request):
     chats = Chat.objects.filter(user=request.user.id)
     chats="admin"
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        # response = ask_openai(message)
+        admin_user = User.objects.get(username='admin')
+        chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
+        chat.save()
+        return JsonResponse({'message': message, 'response': response})
     return render(request, 'chatbot/chatbot.html', {'chats': chats})
+    # return render(request, 'chatbot/chatbot.html')
 
 
 
 def home_chatbot(request):
     if request.method == 'POST':
         message = request.POST.get('message')
-        response = ask_openai(message)
+        # response = ask_openai(message)
         admin_user = User.objects.get(username='admin')
         chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
         chat.save()
