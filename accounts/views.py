@@ -11,6 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 from legaltech import settings
 from accounts.tokens import generate_token
 from accounts.models import Profile, LSP
+from django.conf import settings
+
 
 # Client login view
 def client_login(request):
@@ -77,6 +79,7 @@ def user_registration(request):
         subject = "Welcome to Law Desk!"
         message = f"Hello {myuser.first_name}!\nWelcome to Law Desk! Thank you for visiting our website.\nWe have also sent you a confirmation email, please confirm your email address.\n\nThanking You, Team Law Desk!"
         from_email = settings.EMAIL_HOST_USER
+        print(from_email)
         to_list = [myuser.email]
         send_mail(subject, message, from_email, to_list, fail_silently=True)
 
@@ -259,9 +262,39 @@ def lsp_registration(request):
         subject = "Welcome to Law Desk Web App"
         message = f"Hello {myuser.first_name}!\nWelcome to Law Desk! Your profile has been created successfully! You will receive a confirmation link after your profile verification. Once verified, activate your account, login, and start offering services on the Legal Tech web app.\nThank you for visiting our website.\n\nTeam Law Desk Web App!"
         from_email = settings.EMAIL_HOST_USER
+        print(f"{from_email} is from email  ")
         to_list = [myuser.email]
         send_mail(subject, message, from_email, to_list, fail_silently=True)
 
         return redirect('accounts:lsp_login')
 
     return render(request, 'lsp/lsp_registration.html')
+
+
+
+
+# def lsp_registration(request):
+#     # Compose your email content
+#     subject = "Legal Tech Web App"
+#     message = render_to_string('email/lsp_registration.html')  # You can use an HTML template for the email content
+#     plain_message = strip_tags(message)  # Get the plain text version of the HTML content
+#     from_email = settings.EMAIL_HOST_USER
+#     to_list = ["asksr7372@gmail.com"]
+
+#     # Create the EmailMessage object
+#     email = EmailMessage(subject, plain_message, from_email, to_list)
+
+#     # Attach the HTML content
+#     email.content_subtype = "html"
+
+#     # Send the email
+#     try:
+#         email.send(fail_silently=True)
+#         # Optionally, you can log a success message or handle success in another way
+#     except Exception as e:
+#         # Log the exception or handle the error gracefully
+#         # For now, let's print the exception
+#         print(f"An error occurred while sending email: {e}")
+
+#     # Render the registration template
+#     return render(request, 'lsp/lsp_registration.html')

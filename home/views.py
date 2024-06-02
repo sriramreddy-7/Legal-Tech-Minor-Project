@@ -97,9 +97,12 @@ def chatbot(request):
     if request.method == 'POST':
         message = request.POST.get('message')
         # response = ask_openai(message)
-        admin_user = User.objects.get(username='admin')
-        chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
-        chat.save()
+        # admin_user = User.objects.get(username='admin')
+        
+        # chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
+        # chat.save()
+        message="This chat bot is temporarily out of service"
+        response="This chat bot is temporarily out of service ! Sorry for inconvenience."
         return JsonResponse({'message': message, 'response': response})
     return render(request, 'chatbot/chatbot.html', {'chats': chats})
     # return render(request, 'chatbot/chatbot.html')
@@ -110,9 +113,11 @@ def home_chatbot(request):
     if request.method == 'POST':
         message = request.POST.get('message')
         # response = ask_openai(message)
-        admin_user = User.objects.get(username='admin')
-        chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
-        chat.save()
+        # admin_user = User.objects.get(username='admin')
+        # chat = Chat(user=admin_user, message=message, response=response, created_at=timezone.now())
+        # chat.save()
+        message="This chat bot is temporarily out of service"
+        response="This chat bot is temporarily out of service ! Sorry for inconvenience."
         return JsonResponse({'message': message, 'response': response})
     return render(request,'chatbot/home_chatbot.html')
 
