@@ -31,7 +31,7 @@ urlpatterns = [
     path("accounts/",include('accounts.urls',namespace="accounts")),
     
     path("",views.home,name="home"),
-    path("home",views.home,name="home"), 
+    # path("home",views.home,name="home"), 
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path("service",views.service,name="service"),
     path("chatbot",views.home_chatbot,name="chatbot"),
